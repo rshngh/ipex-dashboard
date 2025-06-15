@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL || import.meta.env.BASE_URL;
+
 const Dashboard = () => {
   // State to manage the current step of the form (1 for input, 2 for confirmation/print)
+
   const [step, setStep] = useState(1);
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -36,16 +40,13 @@ const Dashboard = () => {
     setIsLoading(true);
     if (isFormValid) {
       try {
-        const response = await fetch(
-          `${import.meta.env.BASE_URL}/api/order/confirm-order`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ formData }),
-          }
-        );
+        const response = await fetch(`${apiBaseUrl}/api/order/confirm-order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ formData }),
+        });
         if (response.ok) {
           const blob = await response.blob();
           setPdfBlob(blob);

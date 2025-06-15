@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL || import.meta.env.BASE_URL;
+
 const Login = ({ logIn }) => {
   const [username, setUsername] = useState("test");
   const [password, setPassword] = useState("test123");
@@ -11,16 +14,13 @@ const Login = ({ logIn }) => {
     setError("");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.BASE_URL}/api/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
       const data = await response.json();
 
       if (data.success) {
