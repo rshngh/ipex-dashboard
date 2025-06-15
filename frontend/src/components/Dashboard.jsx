@@ -63,12 +63,13 @@ const Dashboard = () => {
   // Handler for the "Print" button click in the confirmation step
   const handlePrint = () => {
     const url = window.URL.createObjectURL(pdfBlob);
-    const labelPdfFile = document.createElement("labelPdfFile");
-    labelPdfFile.href = url;
-    labelPdfFile.download = `delivery_label_${Date.now()}.pdf`; // creating filename
-    document.body.appendChild(labelPdfFile);
-    labelPdfFile.click();
-    labelPdfFile.remove();
+    const a = document.createElement("a");
+    console.log(a);
+    a.href = url;
+    a.download = `delivery_label_${Date.now()}.pdf`; // creating filename
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
     window.URL.revokeObjectURL(url);
   };
 
